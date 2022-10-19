@@ -14,9 +14,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('front/welcome');
 });
 
 Auth::routes();
+Route::get('/student', 'App\Http\Controllers\Student\StudentController@index')->name('student')->middleware('student');
+Route::get('/teacher', 'App\Http\Controllers\Teacher\TeacherController@index')->name('teacher')->middleware('teacher');
+Route::get('/admin', 'App\Http\Controllers\Admin\AdminController@index')->name('admin')->middleware('admin');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

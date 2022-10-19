@@ -8,6 +8,24 @@ import _ from "lodash";
 
 require('./bootstrap');
 
+/**
+ * Date-fns library
+ */
+
+import {format, formatRelative, formatDistance, isToday, isTomorrow, parseISO} from 'date-fns';
+import {sk} from 'date-fns/locale'
+
+export const formatDate = (date, pattern) => {
+    return format(date, pattern, {locale: sk});
+};
+
+export const formatDateRel = (date) => {
+    return formatRelative(date, new Date(), {locale: sk, weekStartsOn: 1});
+};
+
+export const formatDateDist = (date) => {
+    return formatDistance(date, new Date(), {locale: sk, addSuffix: true}).replace('približne ', '');
+};
 
 /**
  * Translations i18n
@@ -16,7 +34,6 @@ require('./bootstrap');
 export const isApp = (appId) => {
     return appId === window.Laravel.appId;
 };
-
 const TRANSLATIONS = require('../lang/' + window.Laravel.locale + '.json');
 export const i18n = (t, args) => {
     let translation = TRANSLATIONS[t] || t;
@@ -59,27 +76,7 @@ export const route = (name, params, absolute) => {
 };
 
 
-/**
- * Date-fns library
- */
-
-import {format, formatRelative, formatDistance, isToday, isTomorrow, parseISO} from 'date-fns';
-import {sk} from 'date-fns/locale'
-
-export const formatDate = (date, pattern) => {
-    return format(date, pattern, {locale: sk});
-};
-
-export const formatDateRel = (date) => {
-    return formatRelative(date, new Date(), {locale: sk, weekStartsOn: 1});
-};
-
-export const formatDateDist = (date) => {
-    return formatDistance(date, new Date(), {locale: sk, addSuffix: true}).replace('približne ', '');
-};
-
-
-window.Vue = require('vue').default;
+import Vue from 'vue'
 
 Vue.mixin({
     methods: {
@@ -103,7 +100,7 @@ Vue.mixin({
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+//Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -111,6 +108,17 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const app = new Vue({
-    el: '#app',
-});
+// const app = new Vue({
+//     el: '#app',
+// });
+
+if (document.getElementById('course-list')) {
+    new Vue({
+        el: '#course-list',
+        components: {
+            'course-list': require('./components/Front/CourseList').default
+        },
+    });
+}
+
+
