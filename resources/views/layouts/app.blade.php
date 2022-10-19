@@ -18,6 +18,20 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <script>
+      window.Laravel = {!! json_encode([
+      'appUrl' => config('app.url'),
+      'appName' => config('app.name'),
+      'appId' => env('APP_ID'),
+      'locale' => App::getLocale(),
+      'locales' => config('app.locales'),
+      'debug' => config('app.debug'),
+      'csrfToken' => csrf_token(),
+      'userId' => Auth::id(),
+      'userName' => Auth::user() ? Auth::user()->name : null,
+    ]) !!};
+    </script>
 </head>
 <body>
     <div id="app">
@@ -79,5 +93,6 @@
             @yield('content')
         </main>
     </div>
+    <script type="module" src="{{ mix('js/app.js') }}"></script>
 </body>
 </html>

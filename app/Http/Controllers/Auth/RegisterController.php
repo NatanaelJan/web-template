@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Course;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -29,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = 'student';
 
     /**
      * Create a new controller instance.
@@ -47,11 +48,14 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
+
     protected function validator(array $data)
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'school' =>['required', 'string', 'max:255'],
+            'class' =>['required', 'string', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -64,8 +68,13 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $student_info = [
+            'school' => $data['school'],
+            'class' => $data['class'],
+        ];
         return User::create([
             'name' => $data['name'],
+            'student_info' => json_encode($student_info),
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
