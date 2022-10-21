@@ -26,7 +26,7 @@ mix
     if (mix.inProduction()) return;
 
     const command = () => exec(
-      'php artisan ziggy:generate resources/shared/js/ziggy.js',
+      'php artisan ziggy:generate resources/js/ziggy.js',
       (error, stdout, stderr) => console.log(stdout)
     );
 

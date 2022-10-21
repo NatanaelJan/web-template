@@ -5609,17 +5609,27 @@ var Ziggy = {
       "uri": "password\/confirm",
       "methods": ["GET", "HEAD"]
     },
+    "student": {
+      "uri": "student",
+      "methods": ["GET", "HEAD"]
+    },
+    "teacher": {
+      "uri": "teacher",
+      "methods": ["GET", "HEAD"]
+    },
+    "admin": {
+      "uri": "admin",
+      "methods": ["GET", "HEAD"]
+    },
     "home": {
       "uri": "home",
       "methods": ["GET", "HEAD"]
     }
   }
 };
-
 if (typeof window !== 'undefined' && typeof window.Ziggy !== 'undefined') {
   Object.assign(Ziggy.routes, window.Ziggy.routes);
 }
-
 
 
 /***/ }),
